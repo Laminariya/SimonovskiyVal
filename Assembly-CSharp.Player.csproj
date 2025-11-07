@@ -48,6 +48,8 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\CreateMyData.cs" />
     <Compile Include="Assets\Scripts\SerializeXML.cs" />
+    <Compile Include="Assets\Scripts\Panels\MainPanel.cs" />
+    <Compile Include="Assets\Scripts\Panels\GalereyaPanel.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.62f2\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\Variations\mono\Managed\UnityEngine.dll</HintPath>
     </Reference>
