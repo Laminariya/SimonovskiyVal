@@ -59,6 +59,7 @@ public class SerializeXML : MonoBehaviour
                     {
                         foreach (var corpus in complex.Buildings.Corpuses)
                         {
+                            Debug.Log(corpus.Number);
                             foreach (var section in corpus.Sections)
                             {
                                 Debug.Log(section.Number + " " + section.FloorCount);
@@ -115,8 +116,8 @@ public class FeatureType
     [XmlAttribute("Type")] 
     public string Type;
     
-    [XmlElement("FeatureTypes")] 
-    public FeatureTypes FeatureTypes;
+    [XmlElement("Feature")] 
+    public List<Feature> Features = new List<Feature>();
 }
 
 [Serializable]
@@ -213,20 +214,33 @@ public class Floor
 [Serializable]
 public class Flat
 {
-    [XmlAttribute("Id")] 
-    public string Id;
-    [XmlAttribute("Status")] 
-    public int Status;
-    [XmlAttribute("Number")] 
-    public string Number;
-    [XmlAttribute("Floor")] 
-    public string Floor;
-    [XmlAttribute("Num_on_floor")] 
-    public int NumberOnFloor;
-    [XmlAttribute("Rooms")] 
-    public string Rooms;
-    [XmlAttribute("Square_tot")] 
-    public float Area;
+    [XmlAttribute("Id")] public string Id;
+    [XmlAttribute("Status")] public int Status;
+    [XmlAttribute("Number")] public string Number;
+    [XmlAttribute("Floor")] public string Floor;
+    [XmlAttribute("Num_on_floor")] public int NumberOnFloor;
+    [XmlAttribute("Rooms")] public string Rooms;
+    [XmlAttribute("Square_tot")] public float Area;
+    [XmlAttribute("Type")] public int Type;
+    [XmlAttribute("Feature")] public string Feature;
+    [XmlAttribute("Floor_plan")] public string Floor_plan;
+    [XmlAttribute("Flat_plan")] public string Flat_plan;
+    [XmlAttribute("Flat_plan_furniture")] public string Flat_plan_furniture;
+    [XmlAttribute("Decoration")] public string Decoration;
+    [XmlElement("view_from_the_window")] public ViewFromWindow ViewFromWindow;
+}
+
+[Serializable]
+public class ViewFromWindow
+{
+    [XmlElement("view")] 
+    public List<View> Views = new List<View>();
+}
+
+[Serializable]
+public class View
+{
+    [XmlAttribute("url")] public string url;
 }
 
    

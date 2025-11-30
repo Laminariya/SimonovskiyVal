@@ -10,30 +10,36 @@ public class MainPanel : MonoBehaviour
     public Button b_Raspoolozhenie;
     public Button b_Infrastrucktura;
     public Button b_Galereya;
+
+    private GameManager _manager;
     
-    public void Init()
+    public void Init(GameManager manager)
     {
-        
+        _manager = manager;
+        b_ChoseFlat.onClick.AddListener(OnChoseFlat);
+        b_Raspoolozhenie.onClick.AddListener(OnRaspoolozhenie);
+        b_Infrastrucktura.onClick.AddListener(OnInfrastrucktura);
+        b_Galereya.onClick.AddListener(OnGalereya);
     }
 
-    public void OnChoseFlat()
+    private void OnChoseFlat()
     {
-        
+        _manager.choseFlatPanel.Show();
     }
 
-    public void OnRaspoolozhenie()
+    private void OnRaspoolozhenie()
     {
-        
+        _manager.locationPanel.Show();
     }
 
-    public void OnInfrastrucktura()
+    private void OnInfrastrucktura()
     {
-        
+        _manager.infrastructuraPanel.Show();
     }
 
-    public void OnGalereya()
+    private void OnGalereya()
     {
-        
+        _manager.galereyaPanel.Show();
     }
 
 

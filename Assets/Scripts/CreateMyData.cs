@@ -44,6 +44,7 @@ public class CreateMyData : MonoBehaviour
                             myBuilding.Korpus = int.Parse(corpus.Number);
                             myBuilding.Section = int.Parse(section.Number);
                             myBuilding.CountFloors = int.Parse(section.FloorCount);
+                            myBuilding.FinishData = ""; 
                             foreach (var floor in section.Floors)
                             {
                                 foreach (var flat in floor.Flats)   
@@ -58,6 +59,8 @@ public class CreateMyData : MonoBehaviour
                 }
             }
         }
+
+        _manager.MyData = _myData;
     }
 
     // private void CreateData()
@@ -165,7 +168,37 @@ public class MyBuilding
     public int MaxPrice;
     public int MinFloor;
     public int MaxFloor;
+    public string FinishData;
 
+    public string GetMinShortPrice(int rooms)
+    {
+        int price = int.MaxValue;
+
+        foreach (var flat in Flats)
+        {
+            if (flat.Price < price && flat.CountRooms == rooms)
+            {
+                price = flat.Price;
+            }
+        }
+
+        string p = (price / 1000000f).ToString();
+        if (p.Length >= 4)
+            p = p.Substring(0, 4);
+        return p;
+    }
+
+    public int GetCountFlats(int rooms)
+    {
+        int count = 0;
+        foreach (var flat in Flats)
+        {
+            if (flat.CountRooms == rooms)
+                count++;
+        }
+
+        return count;
+    }
 }
 
 [Serializable]
@@ -182,13 +215,21 @@ public class MyFlat
     public float CeilingHeight; //Находиться в Билдинге
     public int Number;
     public int Price;
-    public string UrlFurniture;
-    public string PathFurniture;
+    public string UrlFlatFurniture;
+    public string UrlFlat;
+    public string UrlFloor;
+    public string UrlWindows;
+    public string PathFlatFurniture;
+    public string PathFlat;
     public string PathFloor;
+    public string PathWindows;
     public bool IsFree;
-    public Sprite PlanSprite;
+    public Sprite FlatSprite;
+    public Sprite FloorSprite;
+    public Sprite FlatFurnitureSprite;
     public string Decoration;
     public int NumberOnFloor;
+    public List<string> Feature = new List<string>();
     
     //Отделка
     //Высота потолков
@@ -198,21 +239,37 @@ public class MyFlat
     //Летние помещения: Терраса
     //Виды из окон: на реку
 
-    public MyFlat(Flat objectClass, int korpus, int section)
+    public MyFlat(Flat flat, int korpus, int section)
     {
-        CountRooms = int.Parse(objectClass.Rooms);
-        Area = objectClass.Area;
+        CountRooms = int.Parse(flat.Rooms);
+        if (flat.Type == 7) CountRooms = 0;
+        Area = flat.Area;
         Korpus = korpus;
-        Floor = int.Parse(objectClass.Floor);
-        Number = int.Parse(objectClass.Number);
+        Floor = int.Parse(flat.Floor);
+        Number = int.Parse(flat.Number);
+        NumberOnFloor = flat.NumberOnFloor;
+        Decoration = flat.Decoration;
+        if (flat.Feature != null)
+        {
+            string[] strings = flat.Feature.Split(",");
+            Feature = new List<string>(strings);
+        }
+        
         //Price = objectClass.BargainTerms.Price;
-        //UrlFurniture = objectClass.LayoutPhoto.FullUrl;
-        //IsFree = objectClass.Booking.Status=="free";
+        UrlFloor = flat.Floor_plan;
+        UrlFlat = flat.Flat_plan;
+        UrlFlatFurniture = flat.Flat_plan_furniture;
+        UrlWindows = "";
+        if (flat.ViewFromWindow!=null && flat.ViewFromWindow.Views.Count > 0)
+            UrlWindows = flat.ViewFromWindow.Views[0].url;
+        IsFree = flat.Status==0;
         Section = section;
 
-        Id = objectClass.Id;
-        PathFurniture = Directory.GetCurrentDirectory() + "//Plans//PlanFlat//" + Id + ".png";
+        Id = Korpus + "_" + Number;
+        PathFlatFurniture = Directory.GetCurrentDirectory() + "//Plans//PlanFlat//" + Id + ".png";
         PathFloor = Directory.GetCurrentDirectory() + "//Plans//PlanFloor//" + Id + ".png";
+        PathFlat = Directory.GetCurrentDirectory() + "//Plans//PlanFlatFurniture//" + Id + ".png";
+        PathWindows = Directory.GetCurrentDirectory() + "//Plans//PlanWindow//" + Id + ".png";
     }
 
 }
