@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,11 +29,17 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
     public TMP_Text MinFloor;
     public TMP_Text MaxFloor;
 
+    public Button b_K1;
+    public Button b_K2;
+    public Button b_K3;
+
+    public Button b_Ot1;
+    public Button b_Ot2;
+    public Button b_Ot3;
+
     public Transform ParentPrefabFlat;
     public GameObject PrefabFlat;
-    public Button b_ListBack;
-    public GameObject ListPanel;
-    
+
     private List<FlatPrefab> _flatPrefabs = new List<FlatPrefab>();
 
     private int _St;
@@ -41,6 +48,14 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
     private int _3;
     private int _4;
     private int _5;
+
+    private int _k1;
+    private int _k2;
+    private int _k3;
+
+    private string _ot1 = "Без отделки";
+    private string _ot2 = "White box";
+    private string _ot3 = "Чистовая";
     
     private float _minArea;
     private float _maxArea;
@@ -63,14 +78,12 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         DubleSliderArea.Action += OnDoubleSliderArea;
         DubleSliderPrice.Action += OnDoubleSliderPrice;
         DubleSliderFloor.Action += OnDoubleSliderFloor;
-        b_ListBack.onClick.AddListener(OnBackList);
         OnClose();
     }
 
     public void Show()
     {
         gameObject.SetActive(true);
-        OnBackList();
         OnReset();
     }
 
@@ -82,7 +95,6 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
     public void OnClose()
     {
         gameObject.SetActive(false);
-        OnBackList();
         GameManager.Instance.MessageOffAllLight();
         GameManager.Instance.MessageOnDemo();
     }
@@ -119,21 +131,22 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
     private void OnShowFlat()
     {
         GameManager.Instance.MessageOffAllLight();
-        ListPanel.SetActive(true);
+
         for (int i = 0; i < _flatPrefabs.Count; i++)
         {
             Destroy(_flatPrefabs[i].gameObject);
         }
+
         _flatPrefabs.Clear();
-        
+
         foreach (var building in GameManager.Instance.MyData.Buildings)
         {
             foreach (var myFlat in building.Flats)
             {
-                if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 ||
-                     myFlat.CountRooms == _2
-                     || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 ||
-                     myFlat.CountRooms == _5)
+                if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
+                     || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
+                    && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
+                    && (myFlat.Decoration == _ot1 || myFlat.Decoration == _ot2 || myFlat.Decoration == _ot3)
                     && myFlat.Area <= _maxArea && myFlat.Area >= _minArea &&
                     myFlat.Price <= _maxPrice && myFlat.Price >= _minPrice &&
                     myFlat.Floor <= _maxFloor && myFlat.Floor >= _minFloor)
@@ -152,14 +165,12 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_St==0)
         {
-            b_St.image.color = Color.white;
-            b_St.GetComponentInChildren<TMP_Text>().color = Color.black;
+            b_St.image.color = Color.gray;
             _St = -1;
         }
         else
         {
             b_St.image.color = ActiveColor;
-            b_St.GetComponentInChildren<TMP_Text>().color = Color.white;
             _St = 0;
         }
         CheckAllOffButtons();
@@ -171,14 +182,12 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_1==1)
         {
-            b_1.image.color = Color.white;
-            b_1.GetComponentInChildren<TMP_Text>().color = Color.black;
+            b_1.image.color = Color.gray;
             _1 = -1;
         }
         else
         {
             b_1.image.color = ActiveColor;
-            b_1.GetComponentInChildren<TMP_Text>().color = Color.white;
             _1 = 1;
         }
         CheckAllOffButtons();
@@ -190,14 +199,12 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_2==2)
         {
-            b_2.image.color = Color.white;
-            b_2.GetComponentInChildren<TMP_Text>().color = Color.black;
+            b_2.image.color = Color.gray;
             _2 = -1;
         }
         else
         {
             b_2.image.color = ActiveColor;
-            b_2.GetComponentInChildren<TMP_Text>().color = Color.white;
             _2 = 2;
         }
         CheckAllOffButtons();
@@ -209,14 +216,12 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_3==3)
         {
-            b_3.image.color = Color.white;
-            b_3.GetComponentInChildren<TMP_Text>().color = Color.black;
+            b_3.image.color = Color.gray;
             _3 = -1;
         }
         else
         {
             b_3.image.color = ActiveColor;
-            b_3.GetComponentInChildren<TMP_Text>().color = Color.white;
             _3 = 3;
         }
         CheckAllOffButtons();
@@ -228,14 +233,12 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_4==4)
         {
-            b_4.image.color = Color.white;
-            b_4.GetComponentInChildren<TMP_Text>().color = Color.black;
+            b_4.image.color = Color.gray;
             _4 = -1;
         }
         else
         {
             b_4.image.color = ActiveColor;
-            b_4.GetComponentInChildren<TMP_Text>().color = Color.white;
             _4 = 4;
         }
         CheckAllOffButtons();
@@ -247,20 +250,103 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_5==5)
         {
-            b_5.image.color = Color.white;
-            b_5.GetComponentInChildren<TMP_Text>().color = Color.black;
+            b_5.image.color = Color.grey;
             _5 = -1;
         }
         else
         {
             b_5.image.color = ActiveColor;
-            b_5.GetComponentInChildren<TMP_Text>().color = Color.white;
             _5 = 5;
         }
         CheckAllOffButtons();
         ReloadSliders();
     }
+
+    private void OnK1()
+    {
+        if (_k1==1)
+        {
+            b_K1.image.color = Color.gray;
+            _k1 = -1;
+        }
+        else
+        {
+            b_K1.image.color = ActiveColor;
+            _k1 = 1;
+        }
+    }
     
+    private void OnK2()
+    {
+        if (_k2==2)
+        {
+            b_K2.image.color = Color.gray;
+            _k2 = -1;
+        }
+        else
+        {
+            b_K2.image.color = ActiveColor;
+            _k2 = 2;
+        }
+    }
+    
+    private void OnK3()
+    {
+        if (_k3==3)
+        {
+            b_K3.image.color = Color.gray;
+            _k3 = -1;
+        }
+        else
+        {
+            b_K3.image.color = ActiveColor;
+            _k3 = 3;
+        }
+    }
+    
+    private void OnOt1()
+    {
+        if (_ot1=="Без отделки")
+        {
+            b_Ot1.image.color = Color.gray;
+            _ot1 = "";
+        }
+        else
+        {
+            b_Ot1.image.color = ActiveColor;
+            _ot1 = "Без отделки";
+        }
+    }
+    
+    private void OnOt2()
+    {
+        if (_ot2=="Отделка White Box")
+        {
+            b_Ot2.image.color = Color.gray;
+            _ot2 = "";
+        }
+        else
+        {
+            b_Ot2.image.color = ActiveColor;
+            _ot2 = "Отделка White Box";
+        }
+    }
+    
+    private void OnOt3()
+    {
+        if (_ot3=="Чистовая отделка")
+        {
+            b_Ot3.image.color = Color.gray;
+            _ot3 = "";
+        }
+        else
+        {
+            b_Ot3.image.color = ActiveColor;
+            _ot3 = "Чистовая отделка";
+        }
+    }
+    
+
     private void OnDoubleSliderArea(float value)
     {
         float max = 0;
@@ -454,11 +540,6 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
             _4 = -1;
             _5 = -1;
         }
-    }
-
-    private void OnBackList()
-    {
-        ListPanel.SetActive(false);
     }
 
     public void SendMessageOnComPort()
