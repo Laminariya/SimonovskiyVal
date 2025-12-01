@@ -215,6 +215,9 @@ public class MyFlat
     public float CeilingHeight; //Находиться в Билдинге
     public int Number;
     public int Price;
+    public int PricePerMeter;
+    public string Discount;
+    public int OldPrice;
     public string UrlFlatFurniture;
     public string UrlFlat;
     public string UrlFloor;
@@ -249,6 +252,10 @@ public class MyFlat
         Number = int.Parse(flat.Number);
         NumberOnFloor = flat.NumberOnFloor;
         Decoration = flat.Decoration;
+        Price = flat.Price;
+        OldPrice = flat.OldPrice;
+        PricePerMeter = flat.PricePerMeter;
+        Discount = flat.Discount;
         if (flat.Feature != null)
         {
             string[] strings = flat.Feature.Split(",");

@@ -45,10 +45,24 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Panels\LocationPanel.cs" />
+    <Compile Include="Assets\Scripts\Panels\OnPlanPanel.cs" />
+    <Compile Include="Assets\Scripts\DubleSlider\DubleSlider.cs" />
+    <Compile Include="Assets\Scripts\Panels\InfrastructuraPanel.cs" />
+    <Compile Include="Assets\Scripts\FloorsOnPlanPrefab.cs" />
+    <Compile Include="Assets\Scripts\FlatPointOnFloorsPrefab.cs" />
+    <Compile Include="Assets\Scripts\CartFlat\FeaturePanel.cs" />
+    <Compile Include="Assets\Scripts\InfoFlatsPrefab.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\CreateImagePNG.cs" />
+    <Compile Include="Assets\Scripts\Panels\ChoseFlatOnParameterPanel.cs" />
+    <Compile Include="Assets\Scripts\Panels\ChoseFlatPanel.cs" />
+    <Compile Include="Assets\Scripts\FlatPrefab.cs" />
     <Compile Include="Assets\Scripts\CreateMyData.cs" />
     <Compile Include="Assets\Scripts\SerializeXML.cs" />
     <Compile Include="Assets\Scripts\Panels\MainPanel.cs" />
+    <Compile Include="Assets\Scripts\Panels\OnGenplanPanel.cs" />
+    <Compile Include="Assets\Scripts\CartFlat\CartFlatPanel.cs" />
     <Compile Include="Assets\Scripts\Panels\GalereyaPanel.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.62f2\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\Variations\mono\Managed\UnityEngine.dll</HintPath>

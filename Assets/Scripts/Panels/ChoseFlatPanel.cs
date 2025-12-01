@@ -26,7 +26,7 @@ public class ChoseFlatPanel : MonoBehaviour
         _manager = manager;
 
         _choseFlatOnParameterPanel = GetComponentInChildren<ChoseFlatOnParameterPanel>(true);
-        _choseFlatOnParameterPanel.Init(manager);
+        _choseFlatOnParameterPanel.Init();
         _onGenplanPanel = GetComponentInChildren<OnGenplanPanel>(true);
         _onGenplanPanel.Init(manager);
         _onPlanPanel = GetComponentInChildren<OnPlanPanel>(true);

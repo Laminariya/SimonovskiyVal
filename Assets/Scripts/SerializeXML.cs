@@ -227,6 +227,10 @@ public class Flat
     [XmlAttribute("Flat_plan")] public string Flat_plan;
     [XmlAttribute("Flat_plan_furniture")] public string Flat_plan_furniture;
     [XmlAttribute("Decoration")] public string Decoration;
+    [XmlAttribute("Price_metr_sale")] public int PricePerMeter;
+    [XmlAttribute("Price_tot")] public int OldPrice;
+    [XmlAttribute("Price_tot_sale")] public int Price;
+    [XmlAttribute("Sale_percent")] public string Discount;
     [XmlElement("view_from_the_window")] public ViewFromWindow ViewFromWindow;
 }
 
