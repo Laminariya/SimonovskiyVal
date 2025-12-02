@@ -27,11 +27,17 @@ public class CartFlatPanel : MonoBehaviour
     public Sprite OnFloorActive;
     public Sprite SizeActive;
     public Sprite WindowActive;
+    
+    public Button b_Location;
+    public Button b_Infrastructura;
+    public Button b_Galereya;
 
     private Sprite _planerNot;
     private Sprite _onFloorNot;
     private Sprite _sizeNot;
     private Sprite _windowNot;
+    private Sprite _windowLoad;
+    private Coroutine _coroutine;
     
     [HideInInspector] public TMP_Text CeilingHeight; //Этого нет в фиде
     
@@ -45,6 +51,10 @@ public class CartFlatPanel : MonoBehaviour
         b_Planer.onClick.AddListener(OnPlaner);
         b_Size.onClick.AddListener(OnSize);
         b_Window.onClick.AddListener(OnWindow);
+        
+        b_Location.onClick.AddListener(OnLocation);
+        b_Galereya.onClick.AddListener(OnGalereya);
+        b_Infrastructura.onClick.AddListener(OnInfrastructura);
 
         _planerNot = b_Planer.image.sprite;
         _onFloorNot = b_OnFloor.image.sprite;
@@ -66,10 +76,24 @@ public class CartFlatPanel : MonoBehaviour
         KorpusRoomNumber.text = _myFlat.Korpus + " корпус, " + _myFlat.Floor + " этаж, №" + _myFlat.Number;
         Otdelka.text = "Отделка: " + GetDecoration();
         OnPlaner();
+        if(_coroutine!=null)
+            StopCoroutine(_coroutine);
+        _coroutine = StartCoroutine(_manager.createImagePng.LoadSpriteFromUrl(_myFlat));
+        
+        _manager.MessageOffAllLight();
+        _manager.MessageOnFlat(_myFlat.Korpus,1,_myFlat.Number);
     }
 
     public void Hide()
     {
+        if (_windowLoad != null)
+        {
+            Destroy(_windowLoad.texture);
+            Destroy(_windowLoad);
+        }
+        if(_coroutine!=null)
+            StopCoroutine(_coroutine);
+        
         gameObject.SetActive(false);
     }
 
@@ -114,6 +138,7 @@ public class CartFlatPanel : MonoBehaviour
     {
         OffAllButtons();
         b_Window.image.sprite = WindowActive;
+        Image.sprite = _windowLoad;
     }
 
     private void OffAllButtons()
@@ -122,6 +147,36 @@ public class CartFlatPanel : MonoBehaviour
         b_Size.image.sprite = _sizeNot;
         b_Window.image.sprite = _windowNot;
         b_OnFloor.image.sprite = _onFloorNot;
+    }
+    
+    private void OnLocation()
+    {
+        _manager.locationPanel.Show();
+        _manager.choseFlatPanel.Hide();
+        Hide();
+    }
+
+    private void OnGalereya()
+    {
+        _manager.galereyaPanel.Show();
+        _manager.choseFlatPanel.Hide();
+        Hide();
+    }
+
+    private void OnInfrastructura()
+    {
+        _manager.infrastructuraPanel.Show();
+        _manager.choseFlatPanel.Hide();
+        Hide();
+    }
+
+    public void SetWindowLoad(Sprite sprite)
+    {
+        _windowLoad = sprite;
+        if (b_Window.image.sprite == WindowActive)
+        {
+            Image.sprite = _windowLoad;
+        }
     }
 
 }

@@ -26,7 +26,7 @@ public class InfrastructuraPanel : MonoBehaviour
         _image = GetComponent<Image>();
         _image.sprite = Sprite1;
         b_Back.onClick.AddListener(OnBack);
-        b_ChoseFlatOnParemeters.onClick.AddListener(OnChoseFlatParameters);
+        b_ChoseFlatOnParemeters.onClick.AddListener(OnChoseFlat);
         b_Galereya.onClick.AddListener(OnGalereya);
         b_Location.onClick.AddListener(OnLocation);
         b_1.onClick.AddListener(On1);
@@ -58,10 +58,12 @@ public class InfrastructuraPanel : MonoBehaviour
     private void OnBack()
     {
         Hide();
+        _manager.MessageOnDemo();
     }
 
-    private void OnChoseFlatParameters()
+    private void OnChoseFlat()
     {
+        _manager.choseFlatPanel.Show();
         Hide();
     }
 

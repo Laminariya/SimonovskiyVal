@@ -59,6 +59,7 @@ public class ChoseFlatPanel : MonoBehaviour
     private void OnBack()
     {
         Hide();
+        _manager.MessageOnDemo();
     }
 
     private void OnLocation()

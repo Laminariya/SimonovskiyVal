@@ -11,6 +11,9 @@ public class MainPanel : MonoBehaviour
     public Button b_Infrastrucktura;
     public Button b_Galereya;
 
+    public Button b_Kurer;
+    public Button b_Car;
+
     private GameManager _manager;
     
     public void Init(GameManager manager)
@@ -20,6 +23,9 @@ public class MainPanel : MonoBehaviour
         b_Raspoolozhenie.onClick.AddListener(OnRaspoolozhenie);
         b_Infrastrucktura.onClick.AddListener(OnInfrastrucktura);
         b_Galereya.onClick.AddListener(OnGalereya);
+        
+        b_Kurer.onClick.AddListener(OnKurier);
+        b_Car.onClick.AddListener(OnCar);
     }
 
     private void OnChoseFlat()
@@ -40,6 +46,18 @@ public class MainPanel : MonoBehaviour
     private void OnGalereya()
     {
         _manager.galereyaPanel.Show();
+    }
+
+    private void OnKurier()
+    {
+        Debug.Log("Mess Kurier");
+        _manager.sendComPort.AddMessage("000B0011FF551100"); //Погасить всё!!!
+    }
+
+    private void OnCar()
+    {
+        Debug.Log("Mess Car");
+        _manager.sendComPort.AddMessage("000C0011FF551100"); //Погасить всё!!!
     }
 
 

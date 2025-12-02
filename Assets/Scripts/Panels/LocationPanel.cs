@@ -16,7 +16,7 @@ public class LocationPanel : MonoBehaviour
     {
         _manager = manager;
         b_Back.onClick.AddListener(OnBack);
-        b_ChoseFlatOnParemeters.onClick.AddListener(OnChoseFlatParameters);
+        b_ChoseFlatOnParemeters.onClick.AddListener(OnChoseFlat);
         b_Galereya.onClick.AddListener(OnGalereya);
         b_Infrastructura.onClick.AddListener(OnInfrastructura);
         Hide();
@@ -34,11 +34,13 @@ public class LocationPanel : MonoBehaviour
     
     private void OnBack()
     {
+        _manager.MessageOnDemo();
         Hide();
     }
 
-    private void OnChoseFlatParameters()
+    private void OnChoseFlat()
     {
+        _manager.choseFlatPanel.Show();
         Hide();
     }
 

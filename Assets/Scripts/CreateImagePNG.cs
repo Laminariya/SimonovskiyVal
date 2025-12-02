@@ -243,4 +243,38 @@ public class CreateImagePNG : MonoBehaviour
         
     }
 
+    public IEnumerator LoadSpriteFromUrl(MyFlat myFlat)
+    {
+        //UnityWebRequest www = UnityWebRequest.Get(myObject.UrlFurniture);
+        //yield return www.SendWebRequest();
+        if (myFlat.UrlWindows != "")
+        {
+
+            using (UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(myFlat.UrlWindows))
+            {
+                yield return webRequest.SendWebRequest();
+                
+                if (webRequest.result == UnityWebRequest.Result.Success)
+                {
+                    Texture2D texture2D = DownloadHandlerTexture.GetContent(webRequest);
+                    //texture2D = DownloadHandlerTexture.GetContent(webRequest);
+                    // texture2D = new Texture2D(cashTexture2D.width, cashTexture2D.height, TextureFormat.RGBA4444, false);
+                    // texture2D.SetPixels32(cashTexture2D.GetPixels32());
+                    // texture2D.Apply();
+                    texture2D.Compress(true);
+
+                    Sprite _sprite = Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height),
+                        new Vector2(0.5f, 0.5f), 100.0f);
+                    _manager.cartFlatPanel.SetWindowLoad(_sprite);
+                    //Destroy(cashTexture2D);
+                }
+                else
+                {
+                    Debug.LogError($"Ошибка загрузки: {webRequest.error}");
+                }
+
+            }
+        }
+    }
+
 }

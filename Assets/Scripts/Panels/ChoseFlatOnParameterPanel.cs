@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -89,7 +90,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         DubleSliderArea.Action += OnDoubleSliderArea;
         DubleSliderPrice.Action += OnDoubleSliderPrice;
         DubleSliderFloor.Action += OnDoubleSliderFloor;
-        OnClose();
+        Hide();
     }
 
     public void Show()
@@ -168,9 +169,9 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         {
             foreach (var myFlat in building.Flats)
             {
-                Debug.Log(myFlat.Price +"  " +_maxPrice +" " + myFlat.Price + " " + _minPrice);
-                Debug.Log(myFlat.Decoration + " " + _ot1 + " " + myFlat.Decoration + " " + _ot2 + " " +
-                          myFlat.Decoration + " " + _ot3);
+                //Debug.Log(myFlat.Price +"  " +_maxPrice +" " + myFlat.Price + " " + _minPrice);
+                //Debug.Log(myFlat.Decoration + " " + _ot1 + " " + myFlat.Decoration + " " + _ot2 + " " +
+                //          myFlat.Decoration + " " + _ot3);
                 if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
                      || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
                     && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
@@ -606,5 +607,11 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
     public void OnSliderArea(float value)
     {
         Scrollbar.value = 1f-Slider.value;
+    }
+
+    private void Update()
+    {
+        if(!gameObject.activeSelf) return;
+        Slider.value = 1f-Scrollbar.value;
     }
 }

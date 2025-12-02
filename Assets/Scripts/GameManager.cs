@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public ChoseFlatPanel choseFlatPanel;
     [HideInInspector] public CreateImagePNG createImagePng;
     [HideInInspector] public CartFlatPanel cartFlatPanel;
+    [HideInInspector] public SendComPort sendComPort;
 
     [HideInInspector] public MyData MyData;
     [HideInInspector] public string SymvolQuadro = "<sup>2</sup>";
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
         choseFlatPanel = FindObjectOfType<ChoseFlatPanel>(true);
         createImagePng = FindObjectOfType<CreateImagePNG>(true);
         cartFlatPanel = FindObjectOfType<CartFlatPanel>(true);
+        sendComPort = FindObjectOfType<SendComPort>(true);
 
         LoadData();
     }
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
         locationPanel.Init(this);
         infrastructuraPanel.Init(this);
         choseFlatPanel.Init(this);
+        sendComPort.Init();
         
 
         yield return StartCoroutine(createImagePng.Init(this));
@@ -82,6 +85,7 @@ public class GameManager : MonoBehaviour
         //     Debug.Log(building.Flats[0].UrlFlatFurniture);
         // }
         LoadPanel.SetActive(false);
+        MessageOnDemo();
         yield return null;
     }
 
@@ -140,7 +144,7 @@ public class GameManager : MonoBehaviour
         if (isOn) str += "0300000000";
         else str += "0000000000";
         Debug.Log("Mess House");
-        //sendComPort.AddMessage(str);
+        sendComPort.AddMessage(str);
     }
 
     public void MessageOnFlat(int house, int porch, int flat, bool isOn = true)
@@ -157,7 +161,7 @@ public class GameManager : MonoBehaviour
         else f += "00000000";
         str += f;
         Debug.Log("Mess Flat");
-        //sendComPort.AddMessage(str);
+        sendComPort.AddMessage(str);
     }
 
     public void MessageOnFloor(int house, int porch, int floor)
@@ -173,19 +177,19 @@ public class GameManager : MonoBehaviour
         if (s.Length == 1) s = "0" + s;
         str += s + "03000000";
         Debug.Log("Mess Floor");
-        //sendComPort.AddMessage(str);
+        sendComPort.AddMessage(str);
     }
 
     public void MessageOffAllLight()
     {
         Debug.Log("Mess OffAll");
-        //sendComPort.AddMessage("007F060100000000"); //Погасить всё!!!
+        sendComPort.AddMessage("007F060100000000"); //Погасить всё!!!
     }
 
     public void MessageOnDemo()
     {
         Debug.Log("Mess Demo");
-        //sendComPort.AddMessage("0064010000000000"); //Включить демо!
+        sendComPort.AddMessage("0064010000000000"); //Включить демо!
     }
 
 }

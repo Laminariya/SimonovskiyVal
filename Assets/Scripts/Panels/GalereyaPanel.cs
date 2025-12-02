@@ -28,7 +28,7 @@ public class GalereyaPanel : MonoBehaviour
         b_Back.onClick.AddListener(OnBack);
         b_Left.onClick.AddListener(OnLeft);
         b_Right.onClick.AddListener(OnRight);
-        b_ChoseFlatOnParemeters.onClick.AddListener(OnChoseFlatParameters);
+        b_ChoseFlatOnParemeters.onClick.AddListener(OnChoseFlat);
         b_Location.onClick.AddListener(OnLocation);
         b_Infrastructura.onClick.AddListener(OnInfrastructura);
         Hide();
@@ -78,10 +78,12 @@ public class GalereyaPanel : MonoBehaviour
             return;
         }
         Hide();
+        _manager.MessageOnDemo();
     }
 
-    private void OnChoseFlatParameters()
+    private void OnChoseFlat()
     {
+        _manager.choseFlatPanel.Show();
         Hide();
     }
 

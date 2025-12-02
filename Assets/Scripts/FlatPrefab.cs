@@ -32,8 +32,16 @@ public class FlatPrefab : MonoBehaviour
         KorpusFloorNumber.text = _myFlat.Korpus + " корпус, " + _myFlat.Floor + " этаж, №" + _myFlat.Number;
         Price.text = GameManager.Instance.GetSplitPrice(_myFlat.Price);
         MetrPrice.text = GameManager.Instance.GetSplitPrice(_myFlat.PricePerMeter);
+        
+        if (_myFlat.Price == _myFlat.OldPrice)
+        {
+            OldPrice.gameObject.SetActive(false);
+            Discount.transform.parent.gameObject.SetActive(false);
+        }
         OldPrice.text = "<s>" + GameManager.Instance.GetSplitPrice(_myFlat.OldPrice) + "</s>";
         Discount.text = "-" + _myFlat.Discount + "%";
+        
+        GameManager.Instance.MessageOnFlat(_myFlat.Korpus,1,_myFlat.Number);
     }
 
     private void OnClick()
