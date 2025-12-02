@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class ChoseFlatOnParameterPanel : MonoBehaviour
 {
     public Color ActiveColor;
+    public Color NotActiveColor;
     
     public DubleSlider DubleSliderArea;
     public DubleSlider DubleSliderPrice;
@@ -39,6 +40,10 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
 
     public Transform ParentPrefabFlat;
     public GameObject PrefabFlat;
+    
+    public Slider Slider;
+    public Scrollbar Scrollbar;
+    public ScrollRect ScrollRect;
 
     private List<FlatPrefab> _flatPrefabs = new List<FlatPrefab>();
 
@@ -53,9 +58,9 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
     private int _k2;
     private int _k3;
 
-    private string _ot1 = "Без отделки";
-    private string _ot2 = "White box";
-    private string _ot3 = "Чистовая";
+    private int _ot1;
+    private int _ot2;
+    private int _ot3;
     
     private float _minArea;
     private float _maxArea;
@@ -72,7 +77,13 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         b_3.onClick.AddListener(On3);
         b_4.onClick.AddListener(On4);
         b_5.onClick.AddListener(On5);
-        b_Close.onClick.AddListener(OnClose);
+        b_K1.onClick.AddListener(OnK1);
+        b_K2.onClick.AddListener(OnK2);
+        b_K3.onClick.AddListener(OnK3);
+        b_Ot1.onClick.AddListener(OnOt1);
+        b_Ot2.onClick.AddListener(OnOt2);
+        b_Ot3.onClick.AddListener(OnOt3);
+        //b_Close.onClick.AddListener(OnClose);
         b_Reset.onClick.AddListener(OnReset);
         b_ShowFlat.onClick.AddListener(OnShowFlat);
         DubleSliderArea.Action += OnDoubleSliderArea;
@@ -126,6 +137,20 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         DubleSliderPrice.LeftSlider.value = 0f;
         DubleSliderPrice.RightSlider.value = 1f;
         ReloadSliders();
+        _ot1 = -1;
+        _ot2 = -1;
+        _ot3 = -1;
+        _k1 = -1;
+        _k2 = -1;
+        _k3 = -1;
+        OnOt1();
+        OnK3();
+        for (int i = 0; i < _flatPrefabs.Count; i++)
+        {
+            Destroy(_flatPrefabs[i].gameObject);
+        }
+
+        _flatPrefabs.Clear();
     }
 
     private void OnShowFlat()
@@ -143,6 +168,9 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         {
             foreach (var myFlat in building.Flats)
             {
+                Debug.Log(myFlat.Price +"  " +_maxPrice +" " + myFlat.Price + " " + _minPrice);
+                Debug.Log(myFlat.Decoration + " " + _ot1 + " " + myFlat.Decoration + " " + _ot2 + " " +
+                          myFlat.Decoration + " " + _ot3);
                 if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
                      || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
                     && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
@@ -165,7 +193,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_St==0)
         {
-            b_St.image.color = Color.gray;
+            b_St.image.color = NotActiveColor;
             _St = -1;
         }
         else
@@ -182,7 +210,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_1==1)
         {
-            b_1.image.color = Color.gray;
+            b_1.image.color = NotActiveColor;
             _1 = -1;
         }
         else
@@ -199,7 +227,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_2==2)
         {
-            b_2.image.color = Color.gray;
+            b_2.image.color = NotActiveColor;
             _2 = -1;
         }
         else
@@ -216,7 +244,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_3==3)
         {
-            b_3.image.color = Color.gray;
+            b_3.image.color = NotActiveColor;
             _3 = -1;
         }
         else
@@ -233,7 +261,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_4==4)
         {
-            b_4.image.color = Color.gray;
+            b_4.image.color = NotActiveColor;
             _4 = -1;
         }
         else
@@ -250,7 +278,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         CheckResetButtons();
         if (_5==5)
         {
-            b_5.image.color = Color.grey;
+            b_5.image.color = NotActiveColor;
             _5 = -1;
         }
         else
@@ -266,7 +294,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
     {
         if (_k1==1)
         {
-            b_K1.image.color = Color.gray;
+            b_K1.image.color = NotActiveColor;
             _k1 = -1;
         }
         else
@@ -274,13 +302,14 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
             b_K1.image.color = ActiveColor;
             _k1 = 1;
         }
+        ReloadSliders();
     }
     
     private void OnK2()
     {
         if (_k2==2)
         {
-            b_K2.image.color = Color.gray;
+            b_K2.image.color = NotActiveColor;
             _k2 = -1;
         }
         else
@@ -288,13 +317,14 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
             b_K2.image.color = ActiveColor;
             _k2 = 2;
         }
+        ReloadSliders();
     }
     
     private void OnK3()
     {
         if (_k3==3)
         {
-            b_K3.image.color = Color.gray;
+            b_K3.image.color = NotActiveColor;
             _k3 = -1;
         }
         else
@@ -302,48 +332,52 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
             b_K3.image.color = ActiveColor;
             _k3 = 3;
         }
+        ReloadSliders();
     }
     
     private void OnOt1()
     {
-        if (_ot1=="Без отделки")
+        if (_ot1==0)
         {
-            b_Ot1.image.color = Color.gray;
-            _ot1 = "";
+            b_Ot1.image.color = NotActiveColor;
+            _ot1 = -1;
         }
         else
         {
             b_Ot1.image.color = ActiveColor;
-            _ot1 = "Без отделки";
+            _ot1 = 0;
         }
+        ReloadSliders();
     }
     
     private void OnOt2()
     {
-        if (_ot2=="Отделка White Box")
+        if (_ot2==20)
         {
-            b_Ot2.image.color = Color.gray;
-            _ot2 = "";
+            b_Ot2.image.color = NotActiveColor;
+            _ot2 = -1;
         }
         else
         {
             b_Ot2.image.color = ActiveColor;
-            _ot2 = "Отделка White Box";
+            _ot2 = 20;
         }
+        ReloadSliders();
     }
     
     private void OnOt3()
     {
-        if (_ot3=="Чистовая отделка")
+        if (_ot3==10)
         {
-            b_Ot3.image.color = Color.gray;
-            _ot3 = "";
+            b_Ot3.image.color = NotActiveColor;
+            _ot3 = -1;
         }
         else
         {
             b_Ot3.image.color = ActiveColor;
-            _ot3 = "Чистовая отделка";
+            _ot3 = 10;
         }
+        ReloadSliders();
     }
     
 
@@ -353,23 +387,29 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         float min = int.MaxValue;
         foreach (var building in GameManager.Instance.MyData.Buildings)
         {
-            foreach (var myObject in building.Flats)
+            foreach (var myFlat in building.Flats)
             {
-                if ((myObject.CountRooms == _St || myObject.CountRooms == _1 || myObject.CountRooms == _2
-                     || myObject.CountRooms == _3 || myObject.CountRooms == _4 || myObject.CountRooms == _5)
-                    && myObject.Area > max)
+                if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
+                     || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
+                    && myFlat.Area > max
+                    && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
+                    && (myFlat.Decoration == _ot1 || myFlat.Decoration == _ot2 || myFlat.Decoration == _ot3)
+                    )
                 {
-                    max = myObject.Area;
+                    max = myFlat.Area;
                 }
             }
 
-            foreach (var myObject in building.Flats)
+            foreach (var myFlat in building.Flats)
             {
-                if ((myObject.CountRooms == _St || myObject.CountRooms == _1 || myObject.CountRooms == _2
-                     || myObject.CountRooms == _3 || myObject.CountRooms == _4 || myObject.CountRooms == _5)
-                    && myObject.Area < min)
+                if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
+                     || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
+                    && myFlat.Area < min
+                    && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
+                    && (myFlat.Decoration == _ot1 || myFlat.Decoration == _ot2 || myFlat.Decoration == _ot3)
+                    )
                 {
-                    min = myObject.Area;
+                    min = myFlat.Area;
                 }
             }
         }
@@ -407,23 +447,29 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         float min = int.MaxValue;
         foreach (var building in GameManager.Instance.MyData.Buildings)
         {
-            foreach (var myObject in building.Flats)
+            foreach (var myFlat in building.Flats)
             {
-                if ((myObject.CountRooms == _St || myObject.CountRooms == _1 || myObject.CountRooms == _2
-                     || myObject.CountRooms == _3 || myObject.CountRooms == _4 || myObject.CountRooms == _5)
-                    && myObject.Price > max)
+                if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
+                     || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
+                    && myFlat.Price > max
+                    && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
+                    && (myFlat.Decoration == _ot1 || myFlat.Decoration == _ot2 || myFlat.Decoration == _ot3)
+                    )
                 {
-                    max = myObject.Price;
+                    max = myFlat.Price;
                 }
             }
 
-            foreach (var myObject in building.Flats)
+            foreach (var myFlat in building.Flats)
             {
-                if ((myObject.CountRooms == _St || myObject.CountRooms == _1 || myObject.CountRooms == _2
-                     || myObject.CountRooms == _3 || myObject.CountRooms == _4 || myObject.CountRooms == _5)
-                    && myObject.Price < min)
+                if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
+                     || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
+                    && myFlat.Price < min
+                    && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
+                    && (myFlat.Decoration == _ot1 || myFlat.Decoration == _ot2 || myFlat.Decoration == _ot3)
+                    )
                 {
-                    min = myObject.Price;
+                    min = myFlat.Price;
                 }
             }
         }
@@ -461,23 +507,29 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         float min = int.MaxValue;
         foreach (var building in GameManager.Instance.MyData.Buildings)
         {
-            foreach (var myObject in building.Flats)
+            foreach (var myFlat in building.Flats)
             {
-                if ((myObject.CountRooms == _St || myObject.CountRooms == _1 || myObject.CountRooms == _2
-                     || myObject.CountRooms == _3 || myObject.CountRooms == _4 || myObject.CountRooms == _5)
-                    && myObject.Floor > max)
+                if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
+                     || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
+                    && myFlat.Floor > max
+                    && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
+                    && (myFlat.Decoration == _ot1 || myFlat.Decoration == _ot2 || myFlat.Decoration == _ot3)
+                    )
                 {
-                    max = myObject.Floor;
+                    max = myFlat.Floor;
                 }
             }
 
-            foreach (var myObject in building.Flats)
+            foreach (var myFlat in building.Flats)
             {
-                if ((myObject.CountRooms == _St || myObject.CountRooms == _1 || myObject.CountRooms == _2
-                     || myObject.CountRooms == _3 || myObject.CountRooms == _4 || myObject.CountRooms == _5)
-                    && myObject.Floor < min)
+                if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
+                     || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
+                    && myFlat.Floor < min
+                    && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
+                    && (myFlat.Decoration == _ot1 || myFlat.Decoration == _ot2 || myFlat.Decoration == _ot3)
+                    )
                 {
-                    min = myObject.Floor;
+                    min = myFlat.Floor;
                 }
             }
         }
@@ -549,5 +601,10 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         {
             //prefab.OnSendMessageOnComPort();
         }
+    }
+
+    public void OnSliderArea(float value)
+    {
+        Scrollbar.value = 1f-Slider.value;
     }
 }

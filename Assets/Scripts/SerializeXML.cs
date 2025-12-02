@@ -141,7 +141,7 @@ public class Decorations
 public class Decoration
 {
     [XmlAttribute("ID")] 
-    public string Id;
+    public int Id;
     [XmlAttribute("Name")] 
     public string Name;
     [XmlAttribute("Translate")] 
@@ -226,8 +226,8 @@ public class Flat
     [XmlAttribute("Floor_plan")] public string Floor_plan;
     [XmlAttribute("Flat_plan")] public string Flat_plan;
     [XmlAttribute("Flat_plan_furniture")] public string Flat_plan_furniture;
-    [XmlAttribute("Decoration")] public string Decoration;
-    [XmlAttribute("Price_metr_sale")] public int PricePerMeter;
+    [XmlAttribute("Decoration")] public int Decoration;
+    [XmlAttribute("Price_metr_sale")] public float PricePerMeter;
     [XmlAttribute("Price_tot")] public int OldPrice;
     [XmlAttribute("Price_tot_sale")] public int Price;
     [XmlAttribute("Sale_percent")] public string Discount;

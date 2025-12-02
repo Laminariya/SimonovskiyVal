@@ -230,7 +230,7 @@ public class MyFlat
     public Sprite FlatSprite;
     public Sprite FloorSprite;
     public Sprite FlatFurnitureSprite;
-    public string Decoration;
+    public int Decoration;
     public int NumberOnFloor;
     public List<string> Feature = new List<string>();
     
@@ -254,7 +254,7 @@ public class MyFlat
         Decoration = flat.Decoration;
         Price = flat.Price;
         OldPrice = flat.OldPrice;
-        PricePerMeter = flat.PricePerMeter;
+        PricePerMeter = (int)flat.PricePerMeter;
         Discount = flat.Discount;
         if (flat.Feature != null)
         {

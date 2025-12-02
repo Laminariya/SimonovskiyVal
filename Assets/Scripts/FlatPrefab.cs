@@ -17,10 +17,14 @@ public class FlatPrefab : MonoBehaviour
     public TMP_Text MetrPrice;
     public TMP_Text Discount;
     
+    private Button _button;
+    
     public void Init(MyFlat myFlat)
     {
         _myFlat = myFlat;
 
+        _button = GetComponent<Button>();
+        _button.onClick.AddListener(OnClick);
         Image.sprite = _myFlat.FlatFurnitureSprite;
         RoomsArea.text = _myFlat.CountRooms + "-комнатная, " + _myFlat.Area + "м" + GameManager.Instance.SymvolQuadro;
         if(_myFlat.CountRooms == 0)
@@ -30,5 +34,10 @@ public class FlatPrefab : MonoBehaviour
         MetrPrice.text = GameManager.Instance.GetSplitPrice(_myFlat.PricePerMeter);
         OldPrice.text = "<s>" + GameManager.Instance.GetSplitPrice(_myFlat.OldPrice) + "</s>";
         Discount.text = "-" + _myFlat.Discount + "%";
+    }
+
+    private void OnClick()
+    {
+        GameManager.Instance.cartFlatPanel.Show(_myFlat);
     }
 }
