@@ -18,7 +18,7 @@ public class SerializeXML : MonoBehaviour
     //public string _feedURL;
 
     //ссылка на json
-    private string _url = "https://fsk-export.hb.bizmrg.com/production/v3/fsk_all.xml";
+    private string _url = "https://fsk-export.hb.bizmrg.com/production/v3/fsk_sale.xml"; //"https://fsk-export.hb.bizmrg.com/production/v3/fsk_all.xml";
 
     public async Task Init()
     {
@@ -41,22 +41,27 @@ public class SerializeXML : MonoBehaviour
             Debug.Log("CC");
             try
             {
+                Debug.Log("XX1");
                 FeedClass = (FeedClass)serializer.Deserialize(reader);
             }
             catch (Exception e)
             {
+                Debug.Log("XX2");
                 Debug.Log(e);
                 throw;
             }
-
+            Debug.Log("XX3");
             //GameManager.Instance.Feed = _feedClass;
-            //Debug.Log("XX "+_feedClass);
+            Debug.Log("XX "+FeedClass.Regions.AllRegion.Count);
             foreach (var region in FeedClass.Regions.AllRegion)
             {
+                Debug.Log("ZZ");
                 foreach (var complex in region.Complexes)  
                 {
-                    if (complex.Name == "Симоновский Вал")
+                    Debug.Log("VV "  +complex.Name);
+                    if (complex.Name == "Симоновский Вал") //Симоновский Вал
                     {
+                        Debug.Log("SSS " + complex.Buildings.Corpuses[0].Number);
                         foreach (var corpus in complex.Buildings.Corpuses)
                         {
                             Debug.Log(corpus.Number);
@@ -68,6 +73,7 @@ public class SerializeXML : MonoBehaviour
                     }
                 }
             }
+            Debug.Log("XML Finish");
         }
     }
 
@@ -215,7 +221,7 @@ public class Floor
 public class Flat
 {
     [XmlAttribute("Id")] public string Id;
-    [XmlAttribute("Status")] public int Status;
+    //[XmlAttribute("Status")] public int Status;
     [XmlAttribute("Number")] public string Number;
     [XmlAttribute("Floor")] public string Floor;
     [XmlAttribute("Num_on_floor")] public int NumberOnFloor;

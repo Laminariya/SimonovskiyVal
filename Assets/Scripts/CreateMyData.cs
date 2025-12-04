@@ -269,7 +269,7 @@ public class MyFlat
         UrlWindows = "";
         if (flat.ViewFromWindow!=null && flat.ViewFromWindow.Views.Count > 0)
             UrlWindows = flat.ViewFromWindow.Views[0].url;
-        IsFree = flat.Status==0;
+        //IsFree = flat.Status==0;
         Section = section;
 
         Id = Korpus + "_" + Number;
