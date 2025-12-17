@@ -49,6 +49,7 @@ public class CreateMyData : MonoBehaviour
                             {
                                 foreach (var flat in floor.Flats)   
                                 {
+                                    if(flat.Status!=0) { continue; }
                                     MyFlat myFlat = new MyFlat(flat, myBuilding.Korpus, myBuilding.Section);
                                     myBuilding.Flats.Add(myFlat);
                                 }
@@ -269,7 +270,7 @@ public class MyFlat
         UrlWindows = "";
         if (flat.ViewFromWindow!=null && flat.ViewFromWindow.Views.Count > 0)
             UrlWindows = flat.ViewFromWindow.Views[0].url;
-        //IsFree = flat.Status==0;
+        IsFree = flat.Status==0;
         Section = section;
 
         Id = Korpus + "_" + Number;

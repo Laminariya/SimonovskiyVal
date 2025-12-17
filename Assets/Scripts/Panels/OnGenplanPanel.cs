@@ -27,6 +27,9 @@ public class OnGenplanPanel : MonoBehaviour
 
     private List<GameObject> _prefabs = new List<GameObject>();
 
+    public Button AllFlats;
+    private MyBuilding _building;
+
     public void Init(GameManager manager)
     {
         _manager = manager;
@@ -36,6 +39,7 @@ public class OnGenplanPanel : MonoBehaviour
         Korpus1.SetActive(false);
         Korpus2.SetActive(false);
         Korpus3.SetActive(false);
+        AllFlats.onClick.AddListener(OnAllFlats);
     }
 
     public void Show()
@@ -117,6 +121,7 @@ public class OnGenplanPanel : MonoBehaviour
         {
             if (myBuilding.Korpus == numberKorpus)
             {
+                _building = myBuilding;
                 NumberKorpus.text = numberKorpus + " корпус";
                 NumberFlat.text = myBuilding.Flats.Count + "  квартиры, Сдача 2 кв. 2028 г.";
                 Count_All.text = myBuilding.Flats.Count.ToString();
@@ -149,5 +154,11 @@ public class OnGenplanPanel : MonoBehaviour
             prefab.Init(building, rooms, _manager);
             _prefabs.Add(prefab.gameObject);
         }
+    }
+
+    private void OnAllFlats()
+    {
+        GameManager.Instance.choseFlatPanel.OnChoseFlayOnParameters();
+        GameManager.Instance.choseFlatPanel._choseFlatOnParameterPanel.ShowOnParameters(_building, -1);
     }
 }

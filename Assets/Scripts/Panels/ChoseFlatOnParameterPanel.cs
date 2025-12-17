@@ -93,6 +93,35 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         Hide();
     }
 
+    public void ShowOnParameters(MyBuilding myBuilding, int rooms)
+    {
+        Show();
+        //if(myBuilding.Korpus==1) OnK1();
+        //if(myBuilding.Korpus==2) OnK2();
+        //if(myBuilding.Korpus==3) OnK3();
+        //OnOt1();
+        OnOt2();
+        OnOt3();
+        if(rooms==0) OnSt();
+        if(rooms==1) On1();
+        if(rooms==2) On2();
+        if(rooms==3) On3();
+        if(rooms==4) On4();
+        if(rooms==5) On5();
+
+        if (rooms == -1)
+        {
+            OnSt();
+            On1();
+            On2();
+            On3();
+            On4();
+            On5();
+        }
+
+        OnShowFlat();
+    }
+
     public void Show()
     {
         gameObject.SetActive(true);
@@ -139,12 +168,14 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         DubleSliderPrice.RightSlider.value = 1f;
         ReloadSliders();
         _ot1 = -1;
-        _ot2 = -1;
-        _ot3 = -1;
+        _ot2 = 30;
+        _ot3 = 10;
         _k1 = -1;
         _k2 = -1;
         _k3 = -1;
         OnOt1();
+        OnOt2();
+        OnOt3();
         OnK3();
         for (int i = 0; i < _flatPrefabs.Count; i++)
         {
@@ -169,9 +200,8 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         {
             foreach (var myFlat in building.Flats)
             {
-                //Debug.Log(myFlat.Price +"  " +_maxPrice +" " + myFlat.Price + " " + _minPrice);
-                //Debug.Log(myFlat.Decoration + " " + _ot1 + " " + myFlat.Decoration + " " + _ot2 + " " +
-                //          myFlat.Decoration + " " + _ot3);
+                Debug.Log(myFlat.Price +"  " + myFlat.Area + " " + myFlat.Floor + " " + myFlat.Decoration + " " + myFlat.CountRooms);
+                
                 if ((myFlat.CountRooms == _St || myFlat.CountRooms == _1 || myFlat.CountRooms == _2
                      || myFlat.CountRooms == _3 || myFlat.CountRooms == _4 || myFlat.CountRooms == _5)
                     && (myFlat.Korpus == _k1 || myFlat.Korpus == _k2 || myFlat.Korpus == _k3)
@@ -353,7 +383,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
     
     private void OnOt2()
     {
-        if (_ot2==20)
+        if (_ot2==30)
         {
             b_Ot2.image.color = NotActiveColor;
             _ot2 = -1;
@@ -361,7 +391,7 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         else
         {
             b_Ot2.image.color = ActiveColor;
-            _ot2 = 20;
+            _ot2 = 30;
         }
         ReloadSliders();
     }

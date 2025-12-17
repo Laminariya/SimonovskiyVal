@@ -30,8 +30,8 @@ public class FlatPrefab : MonoBehaviour
         if(_myFlat.CountRooms == 0)
             RoomsArea.text = "Студия, " + _myFlat.Area + "м" + GameManager.Instance.SymvolQuadro;
         KorpusFloorNumber.text = _myFlat.Korpus + " корпус, " + _myFlat.Floor + " этаж, №" + _myFlat.Number;
-        Price.text = GameManager.Instance.GetSplitPrice(_myFlat.Price);
-        MetrPrice.text = GameManager.Instance.GetSplitPrice(_myFlat.PricePerMeter);
+        Price.text = GameManager.Instance.GetSplitPrice(_myFlat.Price) + " " + GameManager.Instance.SymvolRuble;
+        MetrPrice.text = GameManager.Instance.GetSplitPrice(_myFlat.PricePerMeter) + " за м" + GameManager.Instance.SymvolQuadro;
         
         if (_myFlat.Price == _myFlat.OldPrice)
         {

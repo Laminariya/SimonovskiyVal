@@ -18,7 +18,7 @@ public class SerializeXML : MonoBehaviour
     //public string _feedURL;
 
     //ссылка на json
-    private string _url = "https://fsk-export.hb.bizmrg.com/production/v3/fsk_sale.xml"; //"https://fsk-export.hb.bizmrg.com/production/v3/fsk_all.xml";
+    private string _url = "https://fsk-export.hb.bizmrg.com/production/v3/fsk_all.xml"; //"https://fsk-export.hb.bizmrg.com/production/v3/fsk_all.xml";
 
     public async Task Init()
     {
@@ -58,7 +58,7 @@ public class SerializeXML : MonoBehaviour
                 Debug.Log("ZZ");
                 foreach (var complex in region.Complexes)  
                 {
-                    Debug.Log("VV "  +complex.Name);
+                    //Debug.Log("VV "  +complex.Name);
                     if (complex.Name == "Симоновский Вал") //Симоновский Вал
                     {
                         Debug.Log("SSS " + complex.Buildings.Corpuses[0].Number);
@@ -221,7 +221,7 @@ public class Floor
 public class Flat
 {
     [XmlAttribute("Id")] public string Id;
-    //[XmlAttribute("Status")] public int Status;
+    [XmlAttribute("Status")] public int Status;
     [XmlAttribute("Number")] public string Number;
     [XmlAttribute("Floor")] public string Floor;
     [XmlAttribute("Num_on_floor")] public int NumberOnFloor;

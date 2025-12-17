@@ -15,7 +15,7 @@ public class ChoseFlatPanel : MonoBehaviour
     public Button b_OnGenplan;
     public Button b_OnPlan;
 
-    private ChoseFlatOnParameterPanel _choseFlatOnParameterPanel;
+    [HideInInspector] public ChoseFlatOnParameterPanel _choseFlatOnParameterPanel;
     private OnPlanPanel _onPlanPanel;
     private OnGenplanPanel _onGenplanPanel;
 
@@ -80,7 +80,7 @@ public class ChoseFlatPanel : MonoBehaviour
         Hide();
     }
 
-    private void OnChoseFlayOnParameters()
+    public void OnChoseFlayOnParameters()
     {
         _choseFlatOnParameterPanel.Show();
         _onGenplanPanel.Hide();

@@ -34,6 +34,8 @@ public class InfoFlatsPrefab : MonoBehaviour
     private void OnClick()
     {
         Debug.Log("Открываем Выбор по параметрам");
+        GameManager.Instance.choseFlatPanel.OnChoseFlayOnParameters();
+        GameManager.Instance.choseFlatPanel._choseFlatOnParameterPanel.ShowOnParameters(_myBuilding, _rooms);
     }
 
     private string GetTypeFlat(int rooms)
