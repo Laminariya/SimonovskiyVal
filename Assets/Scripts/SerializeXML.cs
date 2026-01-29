@@ -18,7 +18,7 @@ public class SerializeXML : MonoBehaviour
     //public string _feedURL;
 
     //ссылка на json
-    private string _url = "https://fsk-export.hb.bizmrg.com/production/v3/fsk_all.xml"; //"https://fsk-export.hb.bizmrg.com/production/v3/fsk_all.xml";
+    private string _url = "https://export.fsk.ru/production/v3/fsk_sale.xml"; //"https://fsk-export.hb.bizmrg.com/production/v3/fsk_all.xml";
 
     public async Task Init()
     {

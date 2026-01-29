@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -168,8 +169,8 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
         DubleSliderPrice.RightSlider.value = 1f;
         ReloadSliders();
         _ot1 = -1;
-        _ot2 = 30;
-        _ot3 = 10;
+        _ot2 = -1;
+        _ot3 = -1;
         _k1 = -1;
         _k2 = -1;
         _k3 = -1;
@@ -210,13 +211,21 @@ public class ChoseFlatOnParameterPanel : MonoBehaviour
                     myFlat.Price <= _maxPrice && myFlat.Price >= _minPrice &&
                     myFlat.Floor <= _maxFloor && myFlat.Floor >= _minFloor)
                 {
-                    FlatPrefab flat = Instantiate(PrefabFlat, ParentPrefabFlat)
+                    FlatPrefab flat = Instantiate(PrefabFlat)
                         .GetComponent<FlatPrefab>();
                     flat.Init(myFlat);
                     _flatPrefabs.Add(flat);
                 }
             }
         }
+        
+        _flatPrefabs = _flatPrefabs.OrderBy(p=>p.PriceValue).ToList();
+
+        foreach (var prefab in _flatPrefabs)
+        {
+            prefab.transform.parent = ParentPrefabFlat;
+        }
+        
     }
 
     private void OnSt()
